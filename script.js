@@ -3,13 +3,17 @@ const GameMaster = (function() {
         board: [['', '', ''], ['', '', ''], ['', '', '']],
 
         checkIfOccupied: (xPosition, yPosition) => {
-            if (board[yPosition][xPosition]) return true;
+            if (this.board[yPosition][xPosition]) return true;
             return false; 
         },
 
         placeSymbol: (symbol, xPosition, yPosition) => {
-            board[yPosition][xPosition] = symbol;
-        }
+            this.board[yPosition][xPosition] = symbol;
+        },
+
+        reset: () => {
+            this.board = [['', '', ''], ['', '', ''], ['', '', '']];
+        },
     };
 
     const gameController = {
@@ -54,12 +58,28 @@ const GameMaster = (function() {
 
             return 0;
             
+        },
+    }
+
+    let playerX;
+    let playerO;
+
+    function initializePlayers(player1, player2) {
+        if (player1.symbol === "X") {
+            playerX = player1;
+            playerO = player2;
+        }
+
+        else {
+            playerX = player2;
+            playerO = player1;
         }
     }
 
     return {
-        gameController,
+        initializePlayers,
     }
+    
 })();
 
 function Player(name, startsFirst) {
