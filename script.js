@@ -46,7 +46,13 @@ const GameMaster = (function() {
             }            
 
             // Checking if the board is full, (for a tie)
-        
+            gameBoard.board.forEach((row) => {
+                row.forEach((cell) => {
+                    if (!cell) return 1;
+                });
+            });
+
+            return 0;
             
         }
     }
