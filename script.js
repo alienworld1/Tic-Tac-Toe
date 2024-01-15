@@ -124,29 +124,3 @@ function Player(name, startsFirst) {
         symbol,
     };
 }
-
-//Setting up a console version of the game
-//before moving on to the DOM
-
-const player1Name = prompt("Enter the first player's name") ?? "player1";
-const player2Name = prompt("Enter the second player's name") ?? "player2";
-
-const player1 = Player(player1Name, true);
-const player2 = Player(player2Name, false);
-
-GameMaster.initializePlayers(player1, player2);
-
-while (!GameMaster.gameIsOver()) {
-    currentPlayer = GameMaster.getCurrentTurn();
-    console.log(`It is ${currentPlayer.name}'s turn!`);
-    let x = +prompt("Type the x position to place your marker.");
-    let y = +prompt("Type the y position to place your marker.");
-    GameMaster.playMove(x, y);
-    GameMaster.ConsoleController.printBoard();
-}
-
-let result = GameMaster.getResult();
-if (result === "X") console.log(`${player1.name} wins!`);
-else if (result === "O") console.log(`${player2.name} wins!`);
-else console.log("It's a tie!");
-
