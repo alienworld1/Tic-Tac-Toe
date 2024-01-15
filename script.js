@@ -63,6 +63,7 @@ const GameMaster = (function() {
 
     let playerX;
     let playerO;
+    let currentTurn;
 
     function initializePlayers(player1, player2) {
         if (player1.symbol === "X") {
@@ -74,12 +75,20 @@ const GameMaster = (function() {
             playerX = player2;
             playerO = player1;
         }
+
+        currentTurn = playerX;
+    }
+
+    function getCurrentTurn() {
+        if (gameController.evaluateBoard() != 1) return;
+        return currentTurn;
     }
 
     return {
         initializePlayers,
+        getCurrentTurn,
     }
-    
+
 })();
 
 function Player(name, startsFirst) {
