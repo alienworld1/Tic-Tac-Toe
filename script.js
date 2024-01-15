@@ -1,7 +1,18 @@
 const GameMaster = (function() {
     const gameBoard = {
-        board: [[], [], []],
+        board: [['', '', ''], ['', '', ''], ['', '', '']],
+
+        checkIfOccupied: (xPosition, yPosition) => {
+            if (board[yPosition][xPosition]) return true;
+            return false; 
+        },
     };
+
+    const gameController = {
+        playMove: (player, xPosition, yPosition) => {
+            
+        }
+    }
 
     return {
         gameBoard,
@@ -9,8 +20,8 @@ const GameMaster = (function() {
 })();
 
 function Player(name, startsFirst) {
-    const symbol = startsFirst? "X" : "O";
-    
+    let symbol = startsFirst? "X" : "O";
+
     return {
         name,
         symbol,
