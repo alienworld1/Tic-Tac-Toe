@@ -95,12 +95,8 @@ const GameMaster = (function() {
         currentTurn = (currentTurn === playerX)? playerO : playerX;
     }
 
-    const ConsoleController = {
-        printBoard: () => {
-            gameBoard.board.forEach((row) => {
-                console.log(row);
-            })
-        },
+    function getBoard() {
+        return gameBoard.board;
     }
 
     const getResult = () => gameController.evaluateBoard();
@@ -109,7 +105,7 @@ const GameMaster = (function() {
         initializePlayers,
         getCurrentTurn,
         playMove,
-        ConsoleController,
+        getBoard,
         gameIsOver,
         getResult,
     }
@@ -117,6 +113,9 @@ const GameMaster = (function() {
 })();
 
 const UIController = (function() {
+
+    const board = document.querySelector("#board");
+
     function createSquare(content = "") {
         const square = document.createElement("div");
         square.classList.add("square");
@@ -124,6 +123,20 @@ const UIController = (function() {
 
         return square;
     }
+
+    function drawBoard(boardArray) {
+        for (const row of boardArray) {
+            for (const cell of row) {
+                const square = createSquare(cell);
+                board.appendChild(square);
+            }
+        }
+    }
+
+    return {
+        drawBoard,
+    }
+
 })();
 
 function Player(name, startsFirst) {
