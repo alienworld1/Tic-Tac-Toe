@@ -121,3 +121,9 @@ function Player(name, startsFirst) {
 
 //Setting up a console version of the game
 //before moving on to the DOM
+
+const player1Name = prompt("Enter the first player's name") ?? "player1";
+const player2Name = prompt("Enter the second player's name") ?? "player2";
+
+const player1 = Player(player1Name, true);
+const player2 = Player(player2Name, false);
