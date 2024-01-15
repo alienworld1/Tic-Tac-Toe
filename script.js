@@ -20,6 +20,33 @@ const GameMaster = (function() {
             }
             
             gameBoard.placeSymbol(player.symbol, xPosition, yPosition);
+        },
+
+        evaluateBoard: () => {
+            // Returns 1 if the game is not over, 0 if it is a tie
+            // and the winning player's symbol in case of a winner.
+            
+            for (let i = 0; i < 3; i++) {
+                
+                // Checking rows
+                if (gameBoard.board[i][0] === gameBoard.board[i][1] === gameBoard.board[i][2] && gameBoard.board[i][0]) {
+                    return gameBoard.board[i][0];
+                }
+
+                // Checking columns
+                if (gameBoard.board[0][i] === gameBoard.board[1][i] === gameBoard.board[2][i] && gameBoard.board[0][i]) {
+                    return gameBoard.board[0][i];
+                }
+            }
+
+            // Checking diagonals
+            if (gameBoard.board[1][1]) {
+                if (gameBoard.board[0][0] === gameBoard.board[1][1] === gameBoard.board[2][2]) return gameBoard.board[0][0];
+                if (gameBoard.board[0][2] === gameBoard.board[1][1] === gameBoard.board[2][0]) return gameBoard.board[0][2];
+            }            
+
+            // Checking if the board is full, (for a tie)
+        
             
         }
     }
