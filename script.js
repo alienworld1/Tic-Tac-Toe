@@ -116,6 +116,16 @@ const GameMaster = (function() {
 
 })();
 
+const UIController = (function() {
+    function createSquare(content = "") {
+        const square = document.createElement("div");
+        square.classList.add("square");
+        square.textContent = content;
+
+        return square;
+    }
+})();
+
 function Player(name, startsFirst) {
     let symbol = startsFirst? "X" : "O";
 
