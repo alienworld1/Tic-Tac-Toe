@@ -8,8 +8,11 @@ const GameMaster = (function() {
     }
 })();
 
-function Player(name) {
+function Player(name, startsFirst) {
+    const symbol = startsFirst? "X" : "O";
+    
     return {
         name,
+        symbol,
     };
 }
