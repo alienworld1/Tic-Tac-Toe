@@ -87,7 +87,6 @@ const GameMaster = (function() {
         if (gameIsOver()) return;
 
         if (gameBoard.checkIfOccupied(xPosition, yPosition)) {
-            console.log("This square is occupied.");
             return -1;
         }
 
@@ -96,10 +95,17 @@ const GameMaster = (function() {
         currentTurn = (currentTurn === playerX)? playerO : playerX;
     }
 
+    const ConsoleController = {
+        printBoard: () => {
+            console.log(gameBoard.board);
+        },
+    }
+
     return {
         initializePlayers,
         getCurrentTurn,
         playMove,
+        ConsoleController,
     }
 
 })();
@@ -112,3 +118,6 @@ function Player(name, startsFirst) {
         symbol,
     };
 }
+
+//Setting up a console version of the game
+//before moving on to the DOM
