@@ -18,11 +18,6 @@ const GameMaster = (function() {
 
     const gameController = {
         playMove: (player, xPosition, yPosition) => {
-            if (gameBoard.checkIfOccupied(xPosition, yPosition)) {
-                console.log("This square is occupied.");
-                return -1;
-            }
-            
             gameBoard.placeSymbol(player.symbol, xPosition, yPosition);
         },
 
@@ -65,6 +60,10 @@ const GameMaster = (function() {
     let playerO;
     let currentTurn;
 
+    function gameIsOver() {
+        return (gameController.evaluateBoard() != 1);
+    }
+
     function initializePlayers(player1, player2) {
         if (player1.symbol === "X") {
             playerX = player1;
@@ -80,13 +79,27 @@ const GameMaster = (function() {
     }
 
     function getCurrentTurn() {
-        if (gameController.evaluateBoard() != 1) return;
+        if (gameIsOver()) return;
         return currentTurn;
+    }
+
+    function playMove(xPosition, yPosition) {
+        if (gameIsOver()) return;
+
+        if (gameBoard.checkIfOccupied(xPosition, yPosition)) {
+            console.log("This square is occupied.");
+            return -1;
+        }
+
+        gameController.playMove(currentTurn, xPosition, yPosition);
+
+        currentTurn = (currentTurn === playerX)? playerO : playerX;
     }
 
     return {
         initializePlayers,
         getCurrentTurn,
+        playMove,
     }
 
 })();
