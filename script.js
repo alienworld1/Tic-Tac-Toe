@@ -125,9 +125,10 @@ const UIController = (function() {
     }
 
     function drawBoard(boardArray) {
-        for (const row of boardArray) {
-            for (const cell of row) {
-                const square = createSquare(cell);
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++){
+                const square = createSquare(boardArray[i][j]);
+                square.id = `${i} ${j}`;
                 board.appendChild(square);
             }
         }
