@@ -211,8 +211,8 @@ function Player(name, startsFirst) {
     };
 }
 
-const player1 = Player("player1", true);
-const player2 = Player("player2", false);
+const player1 = Player("X", true);
+const player2 = Player("O", false);
 GameMaster.initializePlayers(player1, player2);
 UIController.refreshBoard();
 UIController.updateStatus();
