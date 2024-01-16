@@ -28,7 +28,7 @@ const GameMaster = (function() {
             for (let i = 0; i < 3; i++) {
 
                 // Checking rows
-                if (gameBoard.board[i][0] === gameBoard.board[i][1] === gameBoard.board[i][2] && gameBoard.board[i][0]) {
+                if (gameBoard.board[i][0] === gameBoard.board[i][1] && gameBoard.board[i][1] === gameBoard.board[i][2] && gameBoard.board[i][0]) {
                     return gameBoard.board[i][0];
                 }
 
@@ -137,6 +137,10 @@ const UIController = (function() {
         const yPos = +coordinates[1];
         GameMaster.playMove(xPos, yPos);
         refreshBoard();
+
+        if (GameMaster.gameIsOver()) {
+            
+        } 
     }
 
     function drawBoard(boardArray) {
