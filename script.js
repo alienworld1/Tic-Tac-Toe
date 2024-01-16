@@ -116,6 +116,12 @@ const UIController = (function() {
 
     const board = document.querySelector("#board");
 
+    function removeAllChildElements(parentNode) {
+        while (parentNode.firstChild) {
+            parentNode.removeChild(parentNode.firstChild);
+        }
+    }
+
     function createSquare(content = "") {
         const square = document.createElement("div");
         square.classList.add("square");
@@ -124,19 +130,30 @@ const UIController = (function() {
         return square;
     }
 
+    function playMove(event) {
+        const positon = event.currentTarget.id;
+        const coordinates = positon.split(" ");
+        const xPos = +coordinates[0];
+        const yPos = +coordinates[1];
+        GameMaster.playMove(xPos, yPos);
+        refreshBoard();
+    }
+
     function drawBoard(boardArray) {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++){
                 const square = createSquare(boardArray[i][j]);
-                square.id = `${i} ${j}`;
+                square.id = `${j} ${i}`;
+                square.addEventListener("click", playMove);
                 board.appendChild(square);
             }
         }
     }
 
     function refreshBoard() {
-        const board = GameMaster.getBoard();
-        drawBoard(board);
+        removeAllChildElements(board);
+        const gameBoard = GameMaster.getBoard();
+        drawBoard(gameBoard);
     }
 
     return {
@@ -155,3 +172,6 @@ function Player(name, startsFirst) {
 }
 
 UIController.refreshBoard();
+const player1 = Player("player1", true);
+const player2 = Player("player2", false);
+GameMaster.initializePlayers(player1, player2);
