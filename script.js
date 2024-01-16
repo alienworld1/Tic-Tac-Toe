@@ -138,9 +138,8 @@ const UIController = (function() {
         GameMaster.playMove(xPos, yPos);
         refreshBoard();
 
-        if (GameMaster.gameIsOver()) {
-            
-        } 
+        let status = updateStatus();
+        if (status === 1) disableBoard();
     }
 
     function drawBoard(boardArray) {
@@ -158,20 +157,40 @@ const UIController = (function() {
         }
     }
 
+    function disableBoard() {
+        const squares = board.children;
+        for (let i = 0; i < squares.length; i++) {
+            squares[i].removeEventListener("click", playMove);
+            squares[i].classList.add("no-click");
+        }
+    }
+
     function refreshBoard() {
         removeAllChildElements(board);
         const gameBoard = GameMaster.getBoard();
         drawBoard(gameBoard);
-        updateStatus();
+    } 
+
+    function printStatus(content) {
+        const status = document.querySelector(".status");
+        status.textContent = content;
     }
 
     function updateStatus() {
-        const status = document.querySelector(".status");
-        const currentPlayer = GameMaster.getCurrentTurn();
-        status.textContent = `${currentPlayer.name} to move.`;
+        if (GameMaster.gameIsOver()) {
+            const result = GameMaster.getResult();
+            if (result === 0) printStatus("It's a tie.");
+            else printStatus(`${result} has won!`);
+            return 1;
+        }
+
+        const currentPlayer = GameMaster.getCurrentTurn()
+        printStatus(`${currentPlayer.name} to move`);
+        return 0;
     }
 
     return {
+        updateStatus,
         refreshBoard,
     }
 
@@ -190,3 +209,4 @@ const player1 = Player("player1", true);
 const player2 = Player("player2", false);
 GameMaster.initializePlayers(player1, player2);
 UIController.refreshBoard();
+UIController.updateStatus();
