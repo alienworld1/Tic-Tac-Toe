@@ -142,9 +142,13 @@ const UIController = (function() {
     function drawBoard(boardArray) {
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++){
-                const square = createSquare(boardArray[i][j]);
+                let content = boardArray[i][j];
+
+                const square = createSquare(content);
                 square.id = `${j} ${i}`;
-                square.addEventListener("click", playMove);
+
+                if (!content) square.addEventListener("click", playMove);
+                else square.classList.add("no-click");
                 board.appendChild(square);
             }
         }

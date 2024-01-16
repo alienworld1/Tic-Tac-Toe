@@ -37,4 +37,9 @@ body {
     text-align: center;
     color: #f8fafc;
     font-size: 8rem;
+    cursor: pointer;
+}
+
+.no-click {
+    cursor: default;
 }
