@@ -99,7 +99,13 @@ const GameMaster = (function() {
         return gameBoard.board;
     }
 
-    const getResult = () => gameController.evaluateBoard();
+    function getResult() {
+        const result = gameController.evaluateBoard();
+
+        if (result === 0 || result === 1) return result;
+
+        return (result === "X")? playerX : playerO;
+    };
 
     return {
         initializePlayers,
@@ -180,7 +186,7 @@ const UIController = (function() {
         if (GameMaster.gameIsOver()) {
             const result = GameMaster.getResult();
             if (result === 0) printStatus("It's a tie.");
-            else printStatus(`${result} has won!`);
+            else printStatus(`${result.name} has won!`);
             return 1;
         }
 
