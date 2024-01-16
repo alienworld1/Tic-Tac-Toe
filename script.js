@@ -133,8 +133,13 @@ const UIController = (function() {
         }
     }
 
+    function refreshBoard() {
+        const board = GameMaster.getBoard();
+        drawBoard(board);
+    }
+
     return {
-        drawBoard,
+        refreshBoard,
     }
 
 })();
@@ -147,3 +152,5 @@ function Player(name, startsFirst) {
         symbol,
     };
 }
+
+UIController.refreshBoard();
