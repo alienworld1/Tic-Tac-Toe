@@ -107,6 +107,11 @@ const GameMaster = (function() {
         return (result === "X")? playerX : playerO;
     };
 
+    function resetGame() {
+        gameBoard.reset();
+        currentTurn = playerX;
+    }
+
     return {
         initializePlayers,
         getCurrentTurn,
@@ -114,6 +119,7 @@ const GameMaster = (function() {
         getBoard,
         gameIsOver,
         getResult,
+        resetGame,
     }
 
 })();
@@ -121,6 +127,7 @@ const GameMaster = (function() {
 const UIController = (function() {
 
     const board = document.querySelector("#board");
+    const newGameButton = document.querySelector("#new-game-button");
 
     function removeAllChildElements(parentNode) {
         while (parentNode.firstChild) {
@@ -194,6 +201,14 @@ const UIController = (function() {
         printStatus(`${currentPlayer.name} to move`);
         return 0;
     }
+
+    function reset() {
+        GameMaster.resetGame();
+        refreshBoard();
+        updateStatus();
+    }
+
+    newGameButton.addEventListener("click", reset);
 
     return {
         updateStatus,
