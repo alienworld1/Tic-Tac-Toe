@@ -162,6 +162,13 @@ const UIController = (function() {
         removeAllChildElements(board);
         const gameBoard = GameMaster.getBoard();
         drawBoard(gameBoard);
+        updateStatus();
+    }
+
+    function updateStatus() {
+        const status = document.querySelector(".status");
+        const currentPlayer = GameMaster.getCurrentTurn();
+        status.textContent = `${currentPlayer.name} to move.`;
     }
 
     return {
@@ -179,7 +186,7 @@ function Player(name, startsFirst) {
     };
 }
 
-UIController.refreshBoard();
 const player1 = Player("player1", true);
 const player2 = Player("player2", false);
 GameMaster.initializePlayers(player1, player2);
+UIController.refreshBoard();
